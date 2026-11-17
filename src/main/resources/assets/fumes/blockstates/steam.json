@@ -1,1 +1,28 @@
-{ "multipart": [ { "apply": { "model": "fumes:block/gas" } } ] }
+{
+ "variants": {
+  "amount=1": {
+   "model": "fumes:block/steam_1"
+  },
+  "amount=2": {
+   "model": "fumes:block/steam_2"
+  },
+  "amount=3": {
+   "model": "fumes:block/steam_3"
+  },
+  "amount=4": {
+   "model": "fumes:block/steam_4"
+  },
+  "amount=5": {
+   "model": "fumes:block/steam_5"
+  },
+  "amount=6": {
+   "model": "fumes:block/steam_6"
+  },
+  "amount=7": {
+   "model": "fumes:block/steam_7"
+  },
+  "amount=8": {
+   "model": "fumes:block/steam_8"
+  }
+ }
+}

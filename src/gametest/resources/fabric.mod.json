@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "id": "fumes_test",
+  "version": "1.0.0",
+  "name": "Fumes dev tests",
+  "environment": "*",
+  "entrypoints": { "fabric-client-gametest": ["com.fumes.test.FumesClientGameTest"] },
+  "depends": { "fumes": "*" }
+}

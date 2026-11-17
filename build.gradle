@@ -36,3 +36,14 @@ java {
 	sourceCompatibility = JavaVersion.VERSION_25
 	targetCompatibility = JavaVersion.VERSION_25
 }
+
+// Dev only: client game test that builds a gas showcase and takes screenshots. Run: gradlew runClientGameTest
+fabricApi {
+	configureTests {
+		createSourceSet = true
+		modId = "fumes_test"
+		enableGameTests = false
+		enableClientGameTests = true
+		eula = true
+	}
+}

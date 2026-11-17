@@ -91,3 +91,45 @@ def armor():
 item()
 armor()
 print('textures written')
+
+
+# ---- gas volumes: one translucent texture per gas and concentration level (like tinted glass, denser = more opaque)
+import random
+import json
+
+GASES = {
+    # id: (rgb, alpha at amount 1, alpha at amount 8)
+    'methane': ((150, 190, 140), 14, 80),
+    'hydrogen_sulfide': ((214, 200, 70), 22, 120),
+    'carbon_dioxide': ((120, 128, 140), 26, 135),
+    'carbon_monoxide': ((70, 70, 76), 14, 75),
+    'steam': ((240, 243, 248), 30, 150),
+}
+ASSETS = os.path.join(ROOT, '..')
+
+
+def gas_textures():
+    for gid, (rgb, a1, a8) in GASES.items():
+        variants = {}
+        for n in range(1, 9):
+            rnd = random.Random(zlib.crc32(f'{gid}{n}'.encode()))
+            alpha = a1 + (a8 - a1) * (n - 1) / 7
+            px = []
+            for y in range(16):
+                row = []
+                for x in range(16):
+                    k = rnd.uniform(0.8, 1.2)  # soft cloudy noise
+                    c = tuple(max(0, min(255, int(v * rnd.uniform(0.94, 1.06)))) for v in rgb)
+                    row.append(c + (max(1, min(255, int(alpha * k))),))
+                px.append(row)
+            name = f'{gid}_{n}'
+            png(os.path.join(ROOT, 'block', name + '.png'), 16, 16, px)
+            with open(os.path.join(ASSETS, 'models', 'block', name + '.json'), 'w') as f:
+                json.dump({'parent': 'fumes:block/gas_volume', 'textures': {'all': f'fumes:block/{name}'}}, f)
+            variants[f'amount={n}'] = {'model': f'fumes:block/{name}'}
+        with open(os.path.join(ASSETS, 'blockstates', gid + '.json'), 'w') as f:
+            json.dump({'variants': variants}, f, indent=1)
+
+
+gas_textures()
+print('gas textures written')

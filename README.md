@@ -13,7 +13,7 @@ Dangerous gases with real physics for Minecraft 26.3 (Fabric). Inspired by the g
 | Carbon monoxide | drifts | weakness, fatigue, then damage | fire, lit furnaces and campfires in rooms without a chimney |
 | Steam | rises fast | scalds (a mask doesn't help) | lava meeting water |
 
-Gas is invisible apart from particles. It spreads until the concentration evens out, blows away under open sky and stays underground.
+Gas shows as a faint coloured haze (denser = more opaque) with particles. It spreads until the concentration evens out, blows away under open sky and stays underground.
 Flames that set off gas: fire, lava, torches, magma, jack o'lanterns, and lit campfires, candles and furnaces. **Lanterns are safe.**
 
 ## Gas mask

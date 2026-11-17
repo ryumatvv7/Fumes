@@ -14,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -33,8 +32,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * A cell of gas. AMOUNT is the concentration (1..8). The block is invisible, has no collision and can be replaced
- * by anything; particles show where it is. Physics run on scheduled ticks: gases rise or sink, spread out until the
+ * A cell of gas. AMOUNT is the concentration (1..8). It renders as a faint coloured haze plus particles, has no
+ * collision and can be replaced by anything. Physics run on scheduled ticks: gases rise or sink, spread out until the
  * concentration is even, blow away under open sky. Flammable gases explode when they touch a flame.
  */
 public class GasBlock extends Block {
@@ -59,9 +58,10 @@ public class GasBlock extends Block {
 
     // ---------------------------------------------------------------- shape / rendering
 
+    //rendered as a translucent volume (denser = more opaque); faces between cells of the same gas are hidden like glass
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.INVISIBLE;
+    protected boolean skipRendering(BlockState state, BlockState neighbor, Direction direction) {
+        return neighbor.is(this) || super.skipRendering(state, neighbor, direction);
     }
 
     @Override
