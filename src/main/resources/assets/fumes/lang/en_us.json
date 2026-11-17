@@ -1,0 +1,12 @@
+{
+  "block.fumes.methane": "Methane",
+  "block.fumes.hydrogen_sulfide": "Hydrogen Sulfide",
+  "block.fumes.carbon_dioxide": "Carbon Dioxide",
+  "block.fumes.carbon_monoxide": "Carbon Monoxide",
+  "block.fumes.steam": "Steam",
+  "item.fumes.gas_mask": "Gas Mask",
+  "death.attack.fumes.gas": "%1$s choked on gas",
+  "death.attack.fumes.gas.player": "%1$s choked on gas while fighting %2$s",
+  "death.attack.fumes.steam": "%1$s was scalded by steam",
+  "death.attack.fumes.steam.player": "%1$s was scalded by steam while fighting %2$s"
+}

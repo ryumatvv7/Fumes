@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "fumes",
+  "version": "${version}",
+  "name": "Fumes",
+  "description": "Dangerous gases with real physics: methane and hydrogen sulfide explode, carbon dioxide and carbon monoxide choke, steam scalds. Wear a gas mask.",
+  "authors": ["ryumatvv7"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.fumes.Fumes"]
+  },
+  "mixins": ["fumes.mixins.json"],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}",
+    "java": ">=25"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "block.fumes.methane": "Метан",
+  "block.fumes.hydrogen_sulfide": "Сероводород",
+  "block.fumes.carbon_dioxide": "Углекислый газ",
+  "block.fumes.carbon_monoxide": "Угарный газ",
+  "block.fumes.steam": "Пар",
+  "item.fumes.gas_mask": "Противогаз",
+  "death.attack.fumes.gas": "%1$s задохнулся газом",
+  "death.attack.fumes.gas.player": "%1$s задохнулся газом, сражаясь с %2$s",
+  "death.attack.fumes.steam": "%1$s ошпарился паром",
+  "death.attack.fumes.steam.player": "%1$s ошпарился паром, сражаясь с %2$s"
+}

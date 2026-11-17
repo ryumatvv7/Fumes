@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.fumes.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": ["CampfireMixin", "FireMixin", "FurnaceMixin", "ServerLevelMixin"],
+  "injectors": { "defaultRequire": 1 }
+}
