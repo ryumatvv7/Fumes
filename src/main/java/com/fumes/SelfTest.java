@@ -121,14 +121,27 @@ final class SelfTest {
             fp.snapTo(o.getX() + 0.5, o.getY(), o.getZ() + 0.5, 0, 0);
             fp.removeAllEffects();
             GasEffects.breathe(level, fp);
-            check("hydrogen sulfide poisons", fp.hasEffect(MobEffects.POISON));
+            check("hydrogen sulfide poisons", fp.hasEffect(com.fumes.gas.GasMobEffect.H2S_POISONING));
             fp.removeAllEffects();
             ItemStack mask = new ItemStack(Fumes.GAS_MASK);
             fp.setItemSlot(EquipmentSlot.HEAD, mask);
             GasEffects.breathe(level, fp);
-            check("gas mask protects", !fp.hasEffect(MobEffects.POISON));
+            check("gas mask protects", !fp.hasEffect(com.fumes.gas.GasMobEffect.H2S_POISONING));
             check("gas mask wears out", fp.getItemBySlot(EquipmentSlot.HEAD).getDamageValue() == 1);
             fp.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+
+            // own effects: asphyxia hurts over time
+            var pig = net.minecraft.world.entity.EntityTypes.PIG.spawn(level, o, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+            if (pig != null) {
+                float hp = pig.getHealth();
+                com.fumes.gas.GasMobEffect.ASPHYXIA.value().applyEffectTick(level, pig, 1);
+                check("asphyxia deals damage (" + hp + " -> " + pig.getHealth() + ")", pig.getHealth() < hp);
+                pig.discard();
+            } else check("pig spawned for the damage test", false);
+
+            // every advancement loaded
+            for (String adv : new String[]{"root", "gas_mask", "filter_works", "asphyxia", "carbon_monoxide", "hydrogen_sulfide", "scalded", "firedamp"})
+                check("advancement " + adv + " loaded", server.getAdvancements().get(Fumes.id(adv)) != null);
 
             // steam from lava meeting water
             box(level, o, 1, 3, 1);

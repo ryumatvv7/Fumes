@@ -1,0 +1,33 @@
+{
+  "parent": "fumes:root",
+  "display": {
+    "icon": {
+      "id": "minecraft:water_bucket"
+    },
+    "title": {
+      "translate": "advancements.fumes.scalded.title"
+    },
+    "description": {
+      "translate": "advancements.fumes.scalded.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:effects_changed",
+      "conditions": {
+        "effects": {
+          "fumes:scalded": {}
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ]
+}

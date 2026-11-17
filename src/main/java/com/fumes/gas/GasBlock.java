@@ -263,6 +263,8 @@ public class GasBlock extends Block {
             }
         }
         if (cloud.isEmpty()) return 0;
+        for (net.minecraft.server.level.ServerPlayer pl : level.players())
+            if (pl.blockPosition().closerThan(start, 24)) GasEffects.award(pl, "firedamp");
         for (BlockPos p : cloud) level.setBlock(p, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
 
         //one blast every few cells; small clouds still get at least one

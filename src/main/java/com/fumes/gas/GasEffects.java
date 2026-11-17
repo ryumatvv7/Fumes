@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -51,34 +52,38 @@ public final class GasEffects {
         int a = s.getValue(GasBlock.AMOUNT);
         if (g.type.maskProtects() && wearsMask(e)) {
             e.getItemBySlot(EquipmentSlot.HEAD).hurtAndBreak(1, e, EquipmentSlot.HEAD);
+            if (e instanceof ServerPlayer sp && a >= 3) award(sp, "filter_works");
             return;
         }
         switch (g.type) {
             case METHANE -> {
                 //not poisonous, but pushes the air out
                 if (a >= 4) effect(e, MobEffects.NAUSEA, 8, 0);
-                if (a >= 6) hurt(level, e, Fumes.GAS_DAMAGE, a - 5);
+                if (a >= 6) effect(e, GasMobEffect.ASPHYXIA, 3, a - 6);
             }
             case HYDROGEN_SULFIDE -> {
-                effect(e, MobEffects.POISON, 2 + a, a >= 6 ? 1 : 0);
+                effect(e, GasMobEffect.H2S_POISONING, 3 + a, a >= 6 ? 1 : 0);
                 if (a >= 3) effect(e, MobEffects.NAUSEA, 10, 0);
                 if (a >= 6) effect(e, MobEffects.BLINDNESS, 3, 0);
             }
             case CARBON_DIOXIDE -> {
-                if (a >= 2) effect(e, MobEffects.SLOWNESS, 3, a >= 6 ? 1 : 0);
-                if (a >= 3) hurt(level, e, Fumes.GAS_DAMAGE, a >= 6 ? 2 : 1);
+                if (a >= 3) effect(e, GasMobEffect.ASPHYXIA, 3, a >= 6 ? 1 : 0);
             }
             case CARBON_MONOXIDE -> {
-                //sneaky: first weakness and fatigue, then real damage
-                effect(e, MobEffects.WEAKNESS, 10, 0);
-                if (a >= 2) effect(e, MobEffects.MINING_FATIGUE, 10, 0);
+                //sneaky: first weak and clumsy, then it starts to hurt
+                effect(e, GasMobEffect.CO_POISONING, 10, a >= 6 ? 2 : a >= 3 ? 1 : 0);
                 if (a >= 3) effect(e, MobEffects.NAUSEA, 8, 0);
-                if (a >= 4) hurt(level, e, Fumes.GAS_DAMAGE, a >= 7 ? 2 : 1);
             }
             case STEAM -> {
-                if (a >= 3 && !e.fireImmune()) hurt(level, e, Fumes.STEAM_DAMAGE, a >= 6 ? 2 : 1);
+                if (a >= 3 && !e.fireImmune()) effect(e, GasMobEffect.SCALDED, 2, a >= 6 ? 1 : 0);
             }
         }
+    }
+
+    /** Grants one of the mod's code-driven advancements (fumes:&lt;name&gt;). */
+    public static void award(ServerPlayer player, String name) {
+        var adv = player.level().getServer().getAdvancements().get(Fumes.id(name));
+        if (adv != null) player.getAdvancements().award(adv, "code");
     }
 
     public static boolean wearsMask(LivingEntity e) {
@@ -88,10 +93,6 @@ public final class GasEffects {
 
     private static void effect(LivingEntity e, Holder<MobEffect> effect, int seconds, int amp) {
         e.addEffect(new MobEffectInstance(effect, seconds * 20, amp, false, true));
-    }
-
-    private static void hurt(ServerLevel level, LivingEntity e, net.minecraft.resources.ResourceKey<net.minecraft.world.damagesource.DamageType> type, float dmg) {
-        e.hurtServer(level, level.damageSources().source(type), dmg);
     }
 
     private GasEffects() {

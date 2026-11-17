@@ -33,6 +33,19 @@ public class FumesClientGameTest implements FabricClientGameTest {
             server.runCommand(String.format("tp @p %d %d %d 90 15", x0 + 22, y + 4, z0 + 5));
             context.waitTicks(40);
             context.takeScreenshot(TestScreenshotOptions.of("fumes_side").withSize(1280, 720));
+            server.runCommand("gamemode survival @p");
+            for (String e : new String[]{"asphyxia", "carbon_monoxide_poisoning", "hydrogen_sulfide_poisoning", "scalded"})
+                server.runCommand("effect give @p fumes:" + e + " 60 0 false");
+            server.runCommand("effect give @p minecraft:resistance 60 4 true");
+            context.waitTicks(10);
+            context.waitTicks(20);
+            context.takeScreenshot(TestScreenshotOptions.of("fumes_effects").withSize(1280, 720));
+            server.runCommand("advancement grant @p only fumes:firedamp");
+            server.runCommand("advancement grant @p only fumes:asphyxia");
+            context.waitTicks(10);
+            context.waitTicks(20);
+            context.takeScreenshot(TestScreenshotOptions.of("fumes_advancements").withSize(1280, 720));
+            server.runCommand("gamemode spectator @p");
             server.runCommand("time set midnight");
             context.waitTicks(30);
             context.takeScreenshot(TestScreenshotOptions.of("fumes_night").withSize(1280, 720));

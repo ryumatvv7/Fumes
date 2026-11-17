@@ -1,0 +1,28 @@
+{
+  "parent": "fumes:gas_mask",
+  "display": {
+    "icon": {
+      "id": "minecraft:charcoal"
+    },
+    "title": {
+      "translate": "advancements.fumes.filter_works.title"
+    },
+    "description": {
+      "translate": "advancements.fumes.filter_works.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "code": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "code"
+    ]
+  ]
+}

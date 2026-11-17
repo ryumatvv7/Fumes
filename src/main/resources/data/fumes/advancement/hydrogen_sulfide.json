@@ -1,0 +1,33 @@
+{
+  "parent": "fumes:asphyxia",
+  "display": {
+    "icon": {
+      "id": "minecraft:egg"
+    },
+    "title": {
+      "translate": "advancements.fumes.hydrogen_sulfide.title"
+    },
+    "description": {
+      "translate": "advancements.fumes.hydrogen_sulfide.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:effects_changed",
+      "conditions": {
+        "effects": {
+          "fumes:hydrogen_sulfide_poisoning": {}
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ]
+}

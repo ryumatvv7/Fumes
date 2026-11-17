@@ -76,6 +76,7 @@ public class Fumes implements ModInitializer {
                 .humanoidArmor(GAS_MASK_MATERIAL, ArmorType.HELMET).durability(GAS_MASK_DURABILITY)));
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(e -> e.accept(GAS_MASK));
 
+        com.fumes.gas.GasMobEffect.init();
         GasSources.init();
         GasEffects.init();
         GasCommand.init();

@@ -1,0 +1,33 @@
+{
+  "parent": "fumes:asphyxia",
+  "display": {
+    "icon": {
+      "id": "minecraft:campfire"
+    },
+    "title": {
+      "translate": "advancements.fumes.carbon_monoxide.title"
+    },
+    "description": {
+      "translate": "advancements.fumes.carbon_monoxide.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:effects_changed",
+      "conditions": {
+        "effects": {
+          "fumes:carbon_monoxide_poisoning": {}
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ]
+}
